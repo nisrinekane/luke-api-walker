@@ -1,23 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react'
+import Form from './components/Form';
+import Planet from './components/Planet';
+import Person from './components/Person';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
+  const [category, setCategory] = useState('people');
+  const [id, setId] = useState(1);
+  const [results, setResults] = useState({})
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes>
+        <Route path='/' element={<Form category={category} id={id} setCategory={setCategory} setId={setId} />}>
+          <Route path='/people/:id' element={<Person id={id} setResults={setResults} results={results} />} />
+          <Route path='/planets/:id' element={<Planet id={id} setResults={setResults} results={results}/>} />
+        </Route>
+      </Routes>
+      <div>
+      </div>
     </div>
   );
 }
